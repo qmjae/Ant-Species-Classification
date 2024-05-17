@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import tensorflow as tf
 import PIL
@@ -46,7 +47,7 @@ if page == "Home":
     st.markdown("---")
 
     # File Uploader
-    file = st.file_uploader("Choose an image of an ant among the following species:\n Fire ant \n", type=["jpg", "png"])
+    file = st.file_uploader("Choose an image of an ant among the following species:\n Fire Ant \n Ghost Ant \n Little Black Ant \n Weaver Ant", type=["jpg", "png"])
     
     # Function to make predictions
     def import_and_predict(image_data, model):
@@ -72,7 +73,7 @@ if page == "Home":
             )
             
             prediction = import_and_predict(image, model)
-            class_names = ['Glioma', 'Meningioma', 'No Tumor', 'Pituitary']
+            class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
             # Display confidence levels
             confidence_levels = {class_name: round(float(pred), 4) for class_name, pred in zip(class_names, prediction[0])}
@@ -93,19 +94,19 @@ elif page == "Guide":
     st.markdown("---")
     st.write("This page displays the names of the classes that the model can classify:")
     st.markdown("---")
-    st.write("- Glioma")
+    st.write("- Fire Ant")
     glioma_image = load_image("https://drive.google.com/uc?export=view&id=1_dHlhzdvtZxzPKiby1w9N__R9uPrAXUP")
     st.image(glioma_image, use_column_width=True)
     st.markdown("---")
-    st.write("- Meningioma")
+    st.write("- Ghost Ant")
     meningioma_image = load_image("https://drive.google.com/uc?export=view&id=1gCTR9Oe4zuE3SDojoqYPMPwOupfSA9Lf")
     st.image(meningioma_image, use_column_width=True)
     st.markdown("---")
-    st.write("- No Tumor")
+    st.write("- Little Black Ant")
     no_tumor_image = load_image("https://drive.google.com/uc?export=view&id=1JqI8bUEW6P3PyYfGsudr_0oMxekgYLDy")
     st.image(no_tumor_image, use_column_width=True)
     st.markdown("---")
-    st.write("- Pituitary")
+    st.write("- Weaver Ant")
     pituitary_image = load_image("https://drive.google.com/uc?export=view&id=1gLzYhPu_P-ZZybapSBEE_mzTymFCd7FP")
     st.image(pituitary_image, use_column_width=True)
     st.markdown("---")
@@ -114,16 +115,13 @@ elif page == "Guide":
 elif page == "About":
     st.title("About")
     st.markdown("---")
-    st.write("This is a simple web application that classifies Brain MRI images into four categories: Glioma, Meningioma, No Tumor, and Pituitary Tumor.")
-    st.write("It uses a deep learning model trained on MRI images to make predictions. It has an evaluated accuracy of 92%.")
+    st.write("This is a simple web application that classifies Ant images among the following species: Fire Ant, Ghost Ant, Little Black Ant, and Weaver Ant")
+    st.write("It uses a deep learning model trained on different Ant images to make predictions.")
     st.markdown("---")
-    st.header("Group 3 - CPE 019-CPE32S6")
+    st.header("Group 8 - CPE 313-CPE32S8")
     st.markdown("---")
-    st.write("Ejercito, Marlon Jason")
-    st.write("Flores, Mico Joshua")
-    st.write("Flores, Marc Oliver")
-    st.write("Gabiano, Chris Leonard")
-    st.write("Gomez, Joram")
+    st.write("Rojo, Maverick")
+    st.write("Roque, Jared Miguel")
     st.markdown("---")
 
 elif page == "Links":
@@ -131,8 +129,6 @@ elif page == "Links":
     st.markdown("---")
     st.header("Github Link")
     st.write("[Click Here](https://github.com/qmjae/Brain-Tumor-MRI-Classification-using-Streamlit)")
-    st.header("Google Colaboratory Link")
-    st.write("[Click Here](https://colab.research.google.com/drive/1voRF5tQ49C45BU7mJRV8wBKjji_YANz5?usp=sharing)")
     st.header("Google Drive Link")
     st.write("[Click Here](https://drive.google.com/drive/folders/1MExGDFt6MVJunB97RloUM7sNb3rudecz?usp=sharing)")
     st.header("Sample Images for Testing")
