@@ -49,18 +49,16 @@ if page == "Home":
     # File Uploader
     file = st.file_uploader("Choose an image of an ant among the following species: Fire Ant, Ghost Ant, Little Black Ant, Weaver Ant", type=["jpg", "png"])
     
-    # Function to make predictions
-    def import_and_predict(image_data, model):
-        img = Image.open(image_data)  # Open the image
-        img = img.convert('RGB')  # Ensure image is in RGB format
-        img = img.resize((150, 150))  # Resize the image to match the model's expected input size
-        img_array = np.asarray(img)  # Convert the image to a NumPy array
-        img_array = img_array / 255.0  # Normalize the image
-        img_array = np.expand_dims(img_array, axis=0)  # Add a batch dimension
+    def load_and_predict(img_path, model):
+        target_size = 150, 150
+        img = image.load_img(img_path, target_size=target_size)
+        img_array = image.img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0)
+        img_array = img_array / 255.0
 
-        prediction = model.predict(img_array)  # Make prediction
-        predicted_class = np.argmax(prediction)  # Get the class with the highest probability
-
+        prediction = model.predict(img_array)
+        predicted_class = np.argmax(prediction)
+        
         return predicted_class
     
     if file is None:
@@ -76,7 +74,7 @@ if page == "Home":
                 unsafe_allow_html=True
             )
             
-            prediction = import_and_predict(image, model)
+            prediction = load_and_predict(image, model)
             class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
             # Display the most likely class
