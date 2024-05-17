@@ -53,8 +53,8 @@ if page == "Home":
     def import_and_predict(img_path, model):
         size = 150, 150
         img = image.load_img(img_path, target_size=size)
-        x = image.img_to_array(img)
-        x = np.expand_dims(x, axis=0)
+        x = np.asarray(img)
+        x = x[np.newaxis, ...]
 
         # Classify the image
         single_prediction = model.predict(x)
