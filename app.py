@@ -50,13 +50,13 @@ if page == "Home":
     file = st.file_uploader("Choose an image of an ant among the following species: Fire Ant, Ghost Ant, Little Black Ant, Weaver Ant", type=["jpg", "png"])
     
     # Function to make predictions
-    def import_and_predict(image_path, model):
+    def import_and_predict(image_data, model):
         size = (150, 150)  
-        img = image.load_img(image_path, target_size=size)  
-        img_array = np.asarray(img)  
-        img_array = np.expand_dims(img_array, axis=0)  
+        image = image.load_img(image_data, target_size=size)  
+        img = np.asarray(image)  
+        img = np.expand_dims(img, axis=0)  
 
-        prediction = model.predict(img_array)  
+        prediction = model.predict(img)  
         predicted_class = np.argmax(prediction)  
         
         return predicted_class
