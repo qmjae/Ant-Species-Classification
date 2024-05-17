@@ -49,9 +49,9 @@ if page == "Home":
     # File Uploader
     file = st.file_uploader("Choose an image of an ant among the following species: Fire Ant, Ghost Ant, Little Black Ant, Weaver Ant", type=["jpg", "png"])
     
-    def load_and_predict(img_path, model):
+    def load_and_predict(img_data, model):
         size = 150, 150
-        img = model.fit(img_path, size, PIL.Image.LANCZOS)
+        img = ImageOps.fit(img_data, size, PIL.Image.LANCZOS)
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
 
