@@ -49,17 +49,17 @@ if page == "Home":
     # File Uploader
     file = st.file_uploader("Choose an image of an ant among the following species: Fire Ant, Ghost Ant, Little Black Ant, Weaver Ant", type=["jpg", "png"])
     
-    def load_and_predict(img_data, model):
+    # Function to make predictions
+    def import_and_predict(img_path, model):
         size = 150, 150
-        img = image.load_img(img_data, target_size=size)
-        x = np.asarray(img)
-        img_reshape = x[np.newaxis, ...]
-        
+        img = image.load_img(img_path, target_size=size)
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+
         # Classify the image
-        prediction = model.predict(img_reshape)
-        predicted_class = np.argmax(prediction)
-        
-        return predicted_class
+        single_prediction = model.predict(x)
+        single_predicted_class = np.argmax(single_prediction)
+        return single_predicted_class
     
     if file is None:
         st.text("Please upload an image file")
@@ -73,7 +73,7 @@ if page == "Home":
                 "<style> img { display: block; margin-left: auto; margin-right: auto; border: 2px solid #ccc; border-radius: 8px; } </style>",
                 unsafe_allow_html=True
             )
-            prediction = load_and_predict(image, model)
+            prediction = import_and_predict(image, model)
             class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
             # Display the most likely class
