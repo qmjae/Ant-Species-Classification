@@ -51,7 +51,7 @@ if page == "Home":
     
     def load_and_predict(img_data, model):
         size = 150, 150
-        img = model.fit(img_data, size)
+        img = image.load_img(img_data, target_size=size)
         x = np.asarray(img)
         img_reshape = x[np.newaxis, ...]
         
