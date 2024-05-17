@@ -73,7 +73,7 @@ if page == "Home":
                 "<style> img { display: block; margin-left: auto; margin-right: auto; border: 2px solid #ccc; border-radius: 8px; } </style>",
                 unsafe_allow_html=True
             )
-            
+            model = load_model()
             prediction = load_and_predict(image, model)
             class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
