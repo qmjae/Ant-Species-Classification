@@ -43,11 +43,11 @@ if page == "Home":
     unsafe_allow_html=True
 )
 
-    st.markdown("<div class='title-container'><h1>Brain Tumor MRI Classification</h1></div>", unsafe_allow_html=True)
+    st.markdown("<div class='title-container'><h1>Ant Species Classification</h1></div>", unsafe_allow_html=True)
     st.markdown("---")
 
     # File Uploader
-    file = st.file_uploader("Choose an image of an ant among the following species:\n Fire Ant \n Ghost Ant \n Little Black Ant \n Weaver Ant", type=["jpg", "png"])
+    file = st.file_uploader("Choose an image of an ant among the following species: Fire Ant, Ghost Ant, Little Black Ant, Weaver Ant", type=["jpg", "png"])
     
     # Function to make predictions
     def import_and_predict(image_data, model):
@@ -82,8 +82,38 @@ if page == "Home":
                 st.write(f"{class_name}: {confidence * 100:.2f}%")
             
             # Display the most likely class
-            string = "OUTPUT : " + class_names[np.argmax(prediction)]
-            st.success(string)
+            species = class_names[np.argmax(prediction)]
+            st.success(f"OUTPUT : {species}")
+            
+            # Recommendation system
+            recommendations = {
+                'fire-ant': {
+                    'description': 'Fire ants are known for their aggressive behavior and painful stings.',
+                    'habitat': 'Typically found in open areas such as meadows and parks.',
+                    'control_methods': 'Use baits and insecticides to control fire ant populations.'
+                },
+                'ghost-ant': {
+                    'description': 'Ghost ants are tiny and often difficult to see due to their pale color.',
+                    'habitat': 'Found in warm, humid environments, often indoors.',
+                    'control_methods': 'Maintain clean environments and use bait traps.'
+                },
+                'little-black-ant': {
+                    'description': 'Little black ants are small and form large colonies.',
+                    'habitat': 'Commonly found in wooded areas, but can also infest homes.',
+                    'control_methods': 'Seal entry points and use ant baits.'
+                },
+                'weaver-ant': {
+                    'description': 'Weaver ants are known for building nests out of leaves.',
+                    'habitat': 'Primarily found in tropical and subtropical regions.',
+                    'control_methods': 'Typically not pests, but can be managed by removing nests.'
+                }
+            }
+            
+            st.markdown("---")
+            st.header("Species Information and Recommendations")
+            st.write(f"**Description:** {recommendations[species]['description']}")
+            st.write(f"**Habitat:** {recommendations[species]['habitat']}")
+            st.write(f"**Control Methods:** {recommendations[species]['control_methods']}")
         except Exception as e:
             st.error("Error: Please upload an image file with one of the following formats: .JPG, .PNG, or .JPEG")
 
@@ -95,20 +125,20 @@ elif page == "Guide":
     st.write("This page displays the names of the classes that the model can classify:")
     st.markdown("---")
     st.write("- Fire Ant")
-    glioma_image = load_image("https://drive.google.com/uc?export=view&id=1_dHlhzdvtZxzPKiby1w9N__R9uPrAXUP")
-    st.image(glioma_image, use_column_width=True)
+    fire_ant_image = load_image("https://drive.google.com/uc?export=view&id=1_dHlhzdvtZxzPKiby1w9N__R9uPrAXUP")
+    st.image(fire_ant_image, use_column_width=True)
     st.markdown("---")
     st.write("- Ghost Ant")
-    meningioma_image = load_image("https://drive.google.com/uc?export=view&id=1gCTR9Oe4zuE3SDojoqYPMPwOupfSA9Lf")
-    st.image(meningioma_image, use_column_width=True)
+    ghost_ant_image = load_image("https://drive.google.com/uc?export=view&id=1gCTR9Oe4zuE3SDojoqYPMPwOupfSA9Lf")
+    st.image(ghost_ant_image, use_column_width=True)
     st.markdown("---")
     st.write("- Little Black Ant")
-    no_tumor_image = load_image("https://drive.google.com/uc?export=view&id=1JqI8bUEW6P3PyYfGsudr_0oMxekgYLDy")
-    st.image(no_tumor_image, use_column_width=True)
+    little_black_ant_image = load_image("https://drive.google.com/uc?export=view&id=1JqI8bUEW6P3PyYfGsudr_0oMxekgYLDy")
+    st.image(little_black_ant_image, use_column_width=True)
     st.markdown("---")
     st.write("- Weaver Ant")
-    pituitary_image = load_image("https://drive.google.com/uc?export=view&id=1gLzYhPu_P-ZZybapSBEE_mzTymFCd7FP")
-    st.image(pituitary_image, use_column_width=True)
+    weaver_ant_image = load_image("https://drive.google.com/uc?export=view&id=1gLzYhPu_P-ZZybapSBEE_mzTymFCd7FP")
+    st.image(weaver_ant_image, use_column_width=True)
     st.markdown("---")
     
 # About Page
@@ -128,7 +158,7 @@ elif page == "Links":
     st.title("Links")
     st.markdown("---")
     st.header("Github Link")
-    st.write("[Click Here](https://github.com/qmjae/Brain-Tumor-MRI-Classification-using-Streamlit)")
+    st.write("[Click Here](https://github.com/TddyJ/Ant-Species-Classification_Final-Project.git)")
     st.header("Google Drive Link")
     st.write("[Click Here](https://drive.google.com/drive/folders/1MExGDFt6MVJunB97RloUM7sNb3rudecz?usp=sharing)")
     st.header("Sample Images for Testing")
