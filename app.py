@@ -75,12 +75,6 @@ if page == "Home":
             prediction = import_and_predict(image, model)
             class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
-            # Display confidence levels
-            confidence_levels = {class_name: round(float(pred), 4) for class_name, pred in zip(class_names, prediction[0])}
-            st.write("Confidence levels:")
-            for class_name, confidence in confidence_levels.items():
-                st.write(f"{class_name}: {confidence * 100:.2f}%")
-            
             # Display the most likely class
             species = class_names[np.argmax(prediction)]
             st.success(f"OUTPUT : {species}")
