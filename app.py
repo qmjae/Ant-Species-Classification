@@ -52,11 +52,11 @@ if page == "Home":
     def load_and_predict(img_path, model):
         target_size = 150, 150
         img = image.load_img(img_path, target_size=target_size)
-        img_array = image.img_to_array(img)
-        img_array = np.expand_dims(img_array, axis=0)
-        img_array = img_array / 255.0
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
 
-        prediction = model.predict(img_array)
+        # Classify the image
+        prediction = model.predict(x)
         predicted_class = np.argmax(prediction)
         
         return predicted_class
@@ -73,7 +73,6 @@ if page == "Home":
                 "<style> img { display: block; margin-left: auto; margin-right: auto; border: 2px solid #ccc; border-radius: 8px; } </style>",
                 unsafe_allow_html=True
             )
-            model = load_model()
             prediction = load_and_predict(image, model)
             class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
