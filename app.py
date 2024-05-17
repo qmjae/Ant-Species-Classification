@@ -53,12 +53,12 @@ if page == "Home":
     def import_and_predict(image_path, model):
         size = (150, 150)  
         img = image.load_img(image_path, target_size=size)  
-        img_array = image.img_to_array(img)  
+        img_array = np.asarray(img)  
         img_array = np.expand_dims(img_array, axis=0)  
 
         prediction = model.predict(img_array)  
         predicted_class = np.argmax(prediction)  
-
+        
         return predicted_class
     
     if file is None:
