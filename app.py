@@ -52,7 +52,6 @@ if page == "Home":
     # Function to make predictions
     def import_and_predict(image_data, model):
         size = (150, 150)  
-        image = ImageOps.fit(image_data, size, Image.LANCZOS)  # Ensure the image is resized correctly
         img = np.asarray(image)  # Convert the image to a NumPy array
         img = img / 255.0  # Normalize the image
         img = np.expand_dims(img, axis=0)  # Add a batch dimension
