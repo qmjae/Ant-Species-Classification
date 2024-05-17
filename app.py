@@ -10,7 +10,7 @@ from io import BytesIO
 # Function to load the model
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('base_model.h5')
+    model = tf.keras.models.load_model('base_model.keras')
     return model
 
 @st.cache
@@ -90,22 +90,22 @@ if page == "Home":
                 'fire-ant': {
                     'description': 'Fire ants are known for their aggressive behavior and painful stings.',
                     'habitat': 'Typically found in open areas such as meadows and parks.',
-                    'control_methods': 'Use baits and insecticides to control fire ant populations.'
+                    'control_methods': 'Handle with caution. Can sting and cause irritation. Use insecticide specifically formulated for fire ants.'
                 },
                 'ghost-ant': {
                     'description': 'Ghost ants are tiny and often difficult to see due to their pale color.',
                     'habitat': 'Found in warm, humid environments, often indoors.',
-                    'control_methods': 'Maintain clean environments and use bait traps.'
+                    'control_methods': 'Maintain clean environments and use baits containing boric acid to control ghost ants..'
                 },
                 'little-black-ant': {
                     'description': 'Little black ants are small and form large colonies.',
                     'habitat': 'Commonly found in wooded areas, but can also infest homes.',
-                    'control_methods': 'Seal entry points and use ant baits.'
+                    'control_methods': 'Generally harmless but can infest food. Seal entry points and use ant baits to manage little black ants.'
                 },
                 'weaver-ant': {
                     'description': 'Weaver ants are known for building nests out of leaves.',
                     'habitat': 'Primarily found in tropical and subtropical regions.',
-                    'control_methods': 'Typically not pests, but can be managed by removing nests.'
+                    'control_methods': 'Can be beneficial for pest control in gardens. Avoid disturbing nests. Trim tree branches to reduce access points and use insecticidal soap to control weaver ants.'
                 }
             }
             
