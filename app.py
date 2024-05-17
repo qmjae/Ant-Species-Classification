@@ -10,7 +10,7 @@ from io import BytesIO
 # Function to load the model
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('base_model.keras')
+    model = tf.keras.models.load_model('base_model.h5')
     return model
 
 @st.cache
