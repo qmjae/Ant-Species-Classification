@@ -53,10 +53,10 @@ if page == "Home":
         size = 150, 150
         img = ImageOps.fit(img_data, size, PIL.Image.LANCZOS)
         x = image.img_to_array(img)
-        x = np.expand_dims(x, axis=0)
-
+        img_reshape = x[np.newaxis, ...]
+        
         # Classify the image
-        prediction = model.predict(x)
+        prediction = model.predict(img_reshape)
         predicted_class = np.argmax(prediction)
         
         return predicted_class
