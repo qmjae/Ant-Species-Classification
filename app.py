@@ -9,7 +9,7 @@ from io import BytesIO
 # Function to load the model
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('base_model.h5')
+    model = tf.keras.models.load_model('fmodel.h5')
     return model
 
 @st.cache
@@ -17,7 +17,7 @@ def load_image(image_url):
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content))
     return image
-
+    
 model = load_model()
 
 # Navigation Bar
@@ -29,6 +29,7 @@ if page == "Home":
     st.markdown(
     """
     <style>
+    /* Add a border around the title */
     .title-container {
         border: 2px solid #f63366;
         border-radius: 5px;
@@ -41,11 +42,11 @@ if page == "Home":
     unsafe_allow_html=True
 )
 
-    st.markdown("<div class='title-container'><h1>Ant Species Classification</h1></div>", unsafe_allow_html=True)
+    st.markdown("<div class='title-container'><h1>Brain Tumor MRI Classification</h1></div>", unsafe_allow_html=True)
     st.markdown("---")
 
     # File Uploader
-    file = st.file_uploader("Choose an image of an ant among the following species: Fire Ant, Ghost Ant, Little Black Ant, Weaver Ant", type=["jpg", "png"])
+    file = st.file_uploader("Choose a Brain MRI image", type=["jpg", "png"])
     
     # Function to make predictions
     def import_and_predict(image_data, model):
