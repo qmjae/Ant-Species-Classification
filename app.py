@@ -74,15 +74,39 @@ if page == "Home":
             prediction = import_and_predict(image, model)
             class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
-            # Display confidence levels
-            confidence_levels = {class_name: round(float(pred), 4) for class_name, pred in zip(class_names, prediction[0])}
-            st.write("Confidence levels:")
-            for class_name, confidence in confidence_levels.items():
-                st.write(f"{class_name}: {confidence * 100:.2f}%")
-            
             # Display the most likely class
-            string = "OUTPUT : " + class_names[np.argmax(prediction)]
-            st.success(string)
+            species = class_names[np.argmax(prediction)]
+            st.success(f"OUTPUT : {species}")
+            
+            # Recommendation system
+            recommendations = {
+                'fire-ant': {
+                    'description': 'Fire ants are known for their aggressive behavior and painful stings.',
+                    'habitat': 'Typically found in open areas such as meadows and parks.',
+                    'control_methods': 'Handle with caution. Can sting and cause irritation. Use insecticide specifically formulated for fire ants.'
+                },
+                'ghost-ant': {
+                    'description': 'Ghost ants are tiny and often difficult to see due to their pale color.',
+                    'habitat': 'Found in warm, humid environments, often indoors.',
+                    'control_methods': 'Maintain clean environments and use baits containing boric acid to control ghost ants..'
+                },
+                'little-black-ant': {
+                    'description': 'Little black ants are small and form large colonies.',
+                    'habitat': 'Commonly found in wooded areas, but can also infest homes.',
+                    'control_methods': 'Generally harmless but can infest food. Seal entry points and use ant baits to manage little black ants.'
+                },
+                'weaver-ant': {
+                    'description': 'Weaver ants are known for building nests out of leaves.',
+                    'habitat': 'Primarily found in tropical and subtropical regions.',
+                    'control_methods': 'Can be beneficial for pest control in gardens. Avoid disturbing nests. Trim tree branches to reduce access points and use insecticidal soap to control weaver ants.'
+                }
+            }
+            
+            st.markdown("---")
+            st.header("Species Information and Recommendations")
+            st.write(f"**Description:** {recommendations[species]['description']}")
+            st.write(f"**Habitat:** {recommendations[species]['habitat']}")
+            st.write(f"**Control Methods:** {recommendations[species]['control_methods']}")
         except Exception as e:
             st.error("Error: Please upload an image file with one of the following formats: .JPG, .PNG, or .JPEG")
 
