@@ -1,11 +1,10 @@
-import os
 import streamlit as st
 import tensorflow as tf
+import PIL
+from PIL import Image, ImageOps
 import numpy as np
 import requests
 from io import BytesIO
-from tensorflow.keras.preprocessing import image as keras_image
-from PIL import Image
 
 # Function to load the model
 @st.cache(allow_output_mutation=True)
@@ -50,16 +49,13 @@ if page == "Home":
     
     # Function to make predictions
     def import_and_predict(image_data, model):
-        size = (150, 150)
-        img = image_data.resize(size)  # Resize image
-        x = keras_image.img_to_array(img)  # Convert to array
-        x = np.expand_dims(x, axis=0)  # Add batch dimension
-        x = x / 255.0  # Normalize pixel values
-
-        # Classify the image
-        single_prediction = model.predict(x)
-        single_predicted_class = np.argmax(single_prediction, axis=1)[0]
-        return single_predicted_class
+        size = (150, 150)  
+        image = ImageOps.fit(image_data, size, PIL.Image.LANCZOS) 
+        img = np.asarray(image)
+        img = img / 255.0  
+        img_reshape = img[np.newaxis, ...]
+        prediction = model.predict(img_reshape)
+        return prediction
     
     if file is None:
         st.text("Please upload an image file")
