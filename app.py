@@ -1,11 +1,11 @@
 import os
 import streamlit as st
 import tensorflow as tf
-import PIL
-from PIL import Image, ImageOps
 import numpy as np
 import requests
 from io import BytesIO
+from tensorflow.keras.preprocessing import image as keras_image
+from PIL import Image
 
 # Function to load the model
 @st.cache(allow_output_mutation=True)
@@ -18,7 +18,7 @@ def load_image(image_url):
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content))
     return image
-    
+
 model = load_model()
 
 # Navigation Bar
@@ -30,7 +30,6 @@ if page == "Home":
     st.markdown(
     """
     <style>
-    /* Add a border around the title */
     .title-container {
         border: 2px solid #f63366;
         border-radius: 5px;
@@ -50,15 +49,16 @@ if page == "Home":
     file = st.file_uploader("Choose an image of an ant among the following species: Fire Ant, Ghost Ant, Little Black Ant, Weaver Ant", type=["jpg", "png"])
     
     # Function to make predictions
-    def import_and_predict(img_path, model):
-        size = 150, 150
-        img = image.load_img(img_path, target_size=size)
-        x = np.asarray(img)
-        x = x[np.newaxis, ...]
+    def import_and_predict(image_data, model):
+        size = (150, 150)
+        img = image_data.resize(size)  # Resize image
+        x = keras_image.img_to_array(img)  # Convert to array
+        x = np.expand_dims(x, axis=0)  # Add batch dimension
+        x = x / 255.0  # Normalize pixel values
 
         # Classify the image
         single_prediction = model.predict(x)
-        single_predicted_class = np.argmax(single_prediction)
+        single_predicted_class = np.argmax(single_prediction, axis=1)[0]
         return single_predicted_class
     
     if file is None:
@@ -77,7 +77,7 @@ if page == "Home":
             class_names = ['fire-ant', 'ghost-ant', 'little-black-ant', 'weaver-ant']
             
             # Display the most likely class
-            species = class_names[np.argmax(prediction)]
+            species = class_names[prediction]
             st.success(f"OUTPUT : {species}")
             
             # Recommendation system
@@ -111,7 +111,6 @@ if page == "Home":
             st.write(f"**Control Methods:** {recommendations[species]['control_methods']}")
         except Exception as e:
             st.error("Error: Please upload an image file with one of the following formats: .JPG, .PNG, or .JPEG")
-
 
 # Names Page
 elif page == "Guide":
